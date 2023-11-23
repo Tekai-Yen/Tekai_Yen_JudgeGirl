@@ -25,37 +25,37 @@ int ReadInt(int *x) {
     *x *= neg;
     return 1;
 }
+
 int main() {
     int x;
     long long int data = 0, temp;
     while (ReadInt(&x)) {
         long long int temp = x, copy = data;
         int times = 0;//0-7組
-        while(times <= 7){
-            if((copy ^ temp) % 256 == 0){
+        while(times < 8){
+            if((copy & 255) == temp){
                 break;
             }
             else{
-                copy >> 8;
+                copy >>= 8;
                 times++;
             }
         }
-        printf("times = %d\n", times);
+        //printf("times = %d\n", times);
         if(times == 8){//書架上沒有
-            data << 8;
+            data <<= 8;
             data += temp;
         }
         else{//書架上有
-            long long int sheet = 0, cover = LLONG_MAX;
-            for(int p=0; p<times; p++){
-                sheet << 8;
-                sheet += 255;
-            }
+            long long int sheet = 0, cover = -1;
+            sheet = (1ll << (times*8)) - 1; 
             sheet &= data;
-            sheet << 8;/////
-            for(int p=0; p<=times; p++){
-                data << 8;
-            }
+            sheet <<= 8;
+            
+            long long int hahaha = 0;
+            if(times != 7) hahaha = ~((1ll << (times+1)*8) - 1);
+            
+            data &= hahaha;
             data += sheet;
             data += temp;
         }
@@ -64,9 +64,12 @@ int main() {
     int ans[8];
     for(int p=7; p>=0; p--){
         long long int temp = 255;
-        temp &= data;
-        printf("%lld", temp);
-        if(p != 0) printf(" ");
+        ans[p] = temp & data;
+        data >>= 8;
+        
+    }
+    for(int p=0; p<8; p++){
+        printf("%d ", ans[p]);
     }
     return 0;
 }

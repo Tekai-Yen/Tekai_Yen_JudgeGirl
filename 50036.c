@@ -1,9 +1,11 @@
 #include<stdio.h>
 
 int tekai(int current, int n, int data[], int m, int k, int count){
-    if(current == n-1) return ((data[current] <= m && count == k-1) || count >= k)?1:0;
-    if(data[current] <= m) return (count>=k)?1+tekai(current+1, n, data, m, k, count)+tekai(current+1, n, data, m-data[current], k, count+1):tekai(current+1, n, data, m, k, count)+tekai(current+1, n, data, m-data[current], k, count+1);
-    return (count>=k)?1+tekai(current+1, n, data, m, k, count):tekai(current+1, n, data, m, k, count);
+    if(current == n-1) return ((data[current] <= m && count >= k-1))?1:0;
+    if(data[current] <= m) return (count>=k-1)?1+tekai(current+1, n, data, m, k, count)+tekai(current+1, n, data, m-data[current], k, count+1):tekai(current+1, n, data, m, k, count)+tekai(current+1, n, data, m-data[current], k, count+1);
+    return tekai(current+1, n, data, m, k, count);
+    //return 0;
+    //return (count>=k)?1+tekai(current+1, n, data, m, k, count):tekai(current+1, n, data, m, k, count);
 }
 
 int main()
