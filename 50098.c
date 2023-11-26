@@ -10,9 +10,12 @@ void print(int answersheet[], int K){
 
 void findit(int answersheet[], int N, int K, int count, bool check[MAX][MAX], int current){
     //printf("%d\n", count);
+    if(current >= N) return;
     for(int p=0; p<count; p++)
-        if(!check[answersheet[p]][current])
+        if(!check[answersheet[p]][current]){
+            findit(answersheet, N, K, count, check, current+1);
             return;
+        }
     answersheet[count] = current;
     count++;
     if(count == K){
@@ -61,7 +64,6 @@ int main(){
         }
         //printf("\n");
     }
-    findit(answersheet, N, K, 0, check, 0);
-    
+    for(int p=0; p<N; p++) findit(answersheet, N, K, 0, check, p);
     return 0;
 }
