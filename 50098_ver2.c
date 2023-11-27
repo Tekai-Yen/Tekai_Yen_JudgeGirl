@@ -11,11 +11,13 @@ void calculate(int N, int K, int answersheet[], int count, long long int check, 
         }
         exit(0);
     }
+    if(current >= N) return;
     if((data[current] & check) != 0){
         //printf("FFF\n");
         calculate(N, K, answersheet, count, check, current+1, data);
         return;
     }
+    
     answersheet[count] = current;
     calculate(N, K, answersheet, count+1, (check | data[current]), current+1, data);
     calculate(N, K, answersheet, count, check, current+1, data);
@@ -38,6 +40,6 @@ int main()
         }
         //printf("%d: %lld\n", p, data[p]);
     }
-    calculate(N, K, answersheet, 0, 0ll, 0, data);
+    for(int p=0; p<N-K; p++) calculate(N, K, answersheet, 0, 0ll, p, data);
     return 0;
 }
