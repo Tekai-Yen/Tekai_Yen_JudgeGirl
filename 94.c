@@ -72,7 +72,6 @@ void traversal(node* root, bool left_first){
         if(root -> left != NULL)
             traversal(root -> left, !left_first);
     }
-      
 }
 
 int main()

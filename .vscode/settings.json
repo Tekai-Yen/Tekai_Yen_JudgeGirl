@@ -2,6 +2,9 @@
     "files.associations": {
         "30.C": "cpp",
         "stdio.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdbool.h": "c",
+        "stdlib.h": "c",
+        "assert.h": "c"
     }
 }
