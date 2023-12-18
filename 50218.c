@@ -15,14 +15,42 @@ struct list {
  
 typedef struct treenode TreeNode;
 typedef struct list List;
- 
+
+void PFLIU(TreeNode *root, List *ptr){
+    if(root == NULL) return;
+    int data = root -> value;
+    ptr -> tail -> left = root;
+    ptr -> tail -> right = NULL;
+    ptr -> tail = root;
+    TreeNode *L = root -> left, *R = root -> right;
+    if(L == NULL && R == NULL) return;
+    if(data % 2 == 0){
+        PFLIU(L, ptr);
+        PFLIU(R, ptr);
+    }
+    else{
+        PFLIU(R, ptr);
+        PFLIU(L, ptr);
+    }
+}
+
 List treeToListFunc(TreeNode * root){
-    
-} 
-
-
-
-
+    List haha;
+    List *tekai = &haha;
+    int data = root -> value;
+    tekai -> head = tekai -> tail = root;
+    TreeNode *L = root -> left, *R = root -> right;
+    if(data % 2 == 0){
+        PFLIU(L, tekai);
+        PFLIU(R, tekai);
+    }
+    else{
+        PFLIU(R, tekai);
+        PFLIU(L, tekai);
+    }
+    tekai -> tail -> left = tekai -> tail -> right = NULL;
+    return haha;
+}
 
 TreeNode *buildTree(int **values, TreeNode **roots) {
     int val;
